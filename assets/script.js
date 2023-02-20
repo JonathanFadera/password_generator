@@ -46,29 +46,29 @@ function getPassLengthOptions() {
 function getPassCharacterOptions(){
   let option = { specialCharacters: false, lowerCase: false, upperCase: false, numbers: false };
   while (
-    !option.specialCharacters &&
-    !option.lowerCase &&
-    !option.upperCase &&
-    !option.numbers
+    !options.specialCharacters &&
+    !options.lowerCase &&
+    !options.upperCase &&
+    !options.numbers
   ) {
     alert(
       `You must choose at least one character type for your password:
       Special Characters, Lower Case, Upper Case, or Numbers.`
     );
-options.specialCharacters = confirm(
+options.special = confirm(
       "Click OK to confirm including special characters.\n" +
         specialCharacters.join("")
     );
     options.lowerCase = confirm(
-      "Click OK to confirm including lower case characters. \n" +
+      "Click OK to confirm including lower case characters.\n" +
         lowerCase.join("")
     );
     options.upperCase = confirm(
-      "Click OK to confirm including upper case characters. \n" +
+      "Click OK to confirm including upper case characters.\n" +
         upperCase.join("")
     );
     options.numeric = confirm(
-      "Click OK to confirm including numeric characters. \n" +
+      "Click OK to confirm including numeric characters.\n" +
         numbers.join("")
     
     );
@@ -87,7 +87,7 @@ function generateCharArray(options) {
   if (options.upperCase) {
     charArray = charArray.concat(upperCase);
   }
-  if (options.numeric) {
+  if (options.numbers) {
     charArray = charArray.concat(numbers);
   }
   return charArray;
@@ -102,7 +102,7 @@ function getRandomCharacter(array) {
 }
 
 // function to generate password with user input and options
-function generatePassword(charArray, passLength) {
+function generatePassword(passLength, charArray) {
   let password = "";
   for (let i = 0; i < passLength; i++) {
     let character = getRandomElement(charArray);

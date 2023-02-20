@@ -17,16 +17,16 @@ generateBtn.addEventListener("click", initApp);
 
 // function that order the calls to the other functions
 function initApp() {
-  let passLength = getPassLenghtOptions();
-  console.log{`Password length is ${passLength}`};
+  let passLength = getPassLengthOptions();
+  console.log{`Password length is: ${passLength}`};
   let options = getPassCharacterOptions(passLength);
   console.log{`User Options are:`};
   console.log(options);
-  let charArray = getCharArray(options);
-  console.log{`Character Array is ${charArray}`};
+  let charArray = generateCharArray(options);
+  console.log{`Character Array is: ${charArray}`};
   // let chat = getRandomElement(charArray);
   let password = generatePassword(charArray, passLength);
-  console.log{`Password is ${password}`};
+  console.log{`Password is: ${password}`};
   writePassword(password);
 }
 // function to prompt user for password length
@@ -43,8 +43,8 @@ function getPassLengthOptions() {
 }
 
 // function to prompt user for character options
-function getPassCharacterOptions(){
-  let option = { specialCharacters: false, lowerCase: false, upperCase: false, numbers: false };
+function getPassCharacterOptions() {
+  let options = { specialCharacters: false, lowerCase: false, upperCase: false, numbers: false };
   while (
     !options.specialCharacters &&
     !options.lowerCase &&
@@ -55,7 +55,7 @@ function getPassCharacterOptions(){
       `You must choose at least one character type for your password:
       Special Characters, Lower Case, Upper Case, or Numbers.`
     );
-options.special = confirm(
+    options.special = confirm(
       "Click OK to confirm including special characters.\n" +
         specialCharacters.join("")
     );
@@ -78,7 +78,7 @@ options.special = confirm(
 // function for creating character array based on password options
 function generateCharArray(options) {
   let charArray = [];
-  if (options.specialCharacters)  {
+  if (options.specialCharacters) {
     charArray = charArray.concat(specialCharacters);
   }
   if (options.lowerCase) {
@@ -105,8 +105,7 @@ function getRandomCharacter(array) {
 function generatePassword(passLength, charArray) {
   let password = "";
   for (let i = 0; i < passLength; i++) {
-    let character = getRandomElement(charArray);
-    password = password + character;
+    password += getRandomChararacter(charArray);
   } return password;
 }
 

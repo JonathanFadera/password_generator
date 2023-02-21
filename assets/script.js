@@ -1,17 +1,18 @@
 // Array of special characters to be included in password
-var specialCharacters = [ "@", "%", "+", "\\", "/", "'", "!", "#", "$", "^", "?", ":", ",", ")", "(", "}", "{", "]", "[", "~", "-", "_", ".",];
+var specialCharacters = [ '@', '%', '+', '\\', '/', "'", '!', '#', '$', '^', '?', ':', ',', ')', '(', '}', '{', ']', '[', '~', '-', '_', '.',];
 
 // Array of lowercase letters
-var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var lowerCasedCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 // Array of uppercase letters
-var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var upperCasedCharacters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-// Array of numbers
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+// Array of numberic characters
+var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 // Get references to the #generate element
 let generateBtn = document.querySelector("#generate");
+
 //Add event listener to generate button
 generateBtn.addEventListener("click", initApp);
 
@@ -24,8 +25,7 @@ function initApp() {
   console.log(options);
   let charArray = generateCharArray(options);
   console.log{`Character Array is: ${charArray}`};
-  // let chat = getRandomElement(charArray);
-  let password = generatePassword(charArray, passLength);
+  let password = generatePassword(passLength, charArray);
   console.log{`Password is: ${password}`};
   writePassword(password);
 }
@@ -44,18 +44,22 @@ function getPassLengthOptions() {
 
 // function to prompt user for character options
 function getPassCharacterOptions() {
-  let options = { specialCharacters: false, lowerCase: false, upperCase: false, numbers: false };
+  let options = { specialCharacters: false, lowerCase: false, upperCase: false, numeric : false };
   while (
     !options.specialCharacters &&
     !options.lowerCase &&
     !options.upperCase &&
-    !options.numbers
+    !options.numeric
   ) {
     alert(
-      `You must choose at least one character type for your password:
-      Special Characters, Lower Case, Upper Case, or Numbers.`
+      `You need to select at least one charcater type to generate the password:
+      1. Special Characters
+      2. Lower Case
+      3. Upper Case
+      4. Numeric
+      `
     );
-    options.special = confirm(
+    options.specialCharacters = confirm(
       "Click OK to confirm including special characters.\n" +
         specialCharacters.join("")
     );
@@ -69,7 +73,7 @@ function getPassCharacterOptions() {
     );
     options.numeric = confirm(
       "Click OK to confirm including numeric characters.\n" +
-        numbers.join("")
+        numeric.join("")
     
     );
   } return options;
@@ -87,8 +91,8 @@ function generateCharArray(options) {
   if (options.upperCase) {
     charArray = charArray.concat(upperCase);
   }
-  if (options.numbers) {
-    charArray = charArray.concat(numbers);
+  if (options.numeric) {
+    charArray = charArray.concat(numeric);
   }
   return charArray;
   
@@ -106,7 +110,8 @@ function generatePassword(passLength, charArray) {
   let password = "";
   for (let i = 0; i < passLength; i++) {
     password += getRandomChararacter(charArray);
-  } return password;
+  } 
+  return password;
 }
 
 // function to write password to the #password input

@@ -22,9 +22,7 @@ const generatePassword = function () {
 // Prompt for password length
   const passLengthFunc = function () {
     let passLength = prompt("How many characters would you like your password to be? (8-128)");
-// console.log("this one1;" + passLength);
     if (passLength >= 8 && passLength <= 128) {
-      // console.log("this one2;" + passLength);
       return passLength;
     } else {
       alert("Your password must be between 8 and 128 characters!");
@@ -34,7 +32,7 @@ const generatePassword = function () {
 
 let passLenghtNum = passLengthFunc();
 
-// create an empty array to store the selected characters based on the user's selection
+// function for creating array based on the password options
   let listSelect = [];
   
   if (uppercaseChar) {
@@ -50,18 +48,18 @@ let passLenghtNum = passLengthFunc();
     listSelect = listSelect.concat(special);
   }
 
-// create a password based on a looping function that will select a random character from the listSelect array
-  let passwordNew = "";
-  for (let i = 0; i <= passLenghtNum; i++) {
-    // create a random number between 0 and the length of the listSelect array
-    const randomNum = Math.floor(Math.random() * listSelect.length);
-    // add new character to the password
-    passwordNew += listSelect[randomNum];
+// create a password based on a looping function that will select a random character from the listSelect array 
+  let password = '';
+  // fixed the error of number of characters in the outputted password is always one greater than the length the user gave
+  for (let i = 0; i < passLenghtNum; i++) {
+    let randomNum = Math.floor(Math.random() * listSelect.length);
+    password += listSelect[randomNum];
   }
-  return passwordNew;
+  return password;
 };
 
-// Write password to the #password input
+
+// Write password to the #password textarea
 function writePassword() {
   let password = generatePassword();
   let passwordText = document.querySelector("#password");
